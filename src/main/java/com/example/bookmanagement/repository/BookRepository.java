@@ -23,16 +23,16 @@ public class BookRepository {
     public int insert(Book book) {
         return bookMapper.insert(book);
     }
-    // 1件取得
-    public Book findById(int id) {
+    // 取得
+    public Book findById(long id) {
         return bookMapper.findById(id);
     }
-    // 1件削除
-    public int delete(long id) {
-        return bookMapper.delete(id);
+    // 削除
+    public boolean delete(long id) {
+        return bookMapper.delete(id) == 1;
     }
-    // 1件更新
-    public int update(Book book) {
+    // 更新
+    public Book update(Book book) {
         if(bookMapper.update(book) == 0) {
             throw new BookNotFoundException(book.getId());
         }

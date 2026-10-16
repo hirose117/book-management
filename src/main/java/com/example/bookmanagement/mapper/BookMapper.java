@@ -18,7 +18,7 @@ public interface BookMapper {
 
     // R : 1件取得
     @Select("SELECT id, title, author, overview, price, publisher, ndc, createdAt FROM books WHERE id = #{id}")
-    Book findById(int id);
+    Book findById(long id);
 
     // D : 1件削除
     @Delete("DELETE FROM books WHERE id =#{id}")

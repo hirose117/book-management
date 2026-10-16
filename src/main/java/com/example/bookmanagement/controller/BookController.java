@@ -41,4 +41,24 @@ public class BookController {
         return ResponseEntity.created(location).body(createdBook);
     }
 
+    // 指定されたidのJSONをリクエスト
+    @GetMapping("/{id}")
+    public ResponseEntity<Book> findById(@PathVariable long id) {
+        Book book = bookService.findById(id);
+
+        return ResponseEntity.ok(book);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable long id) {
+        bookService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Book> update(@PathVariable long id,
+                                       @RequestBody Book book) {
+        bookService.update(book, id);
+        return ResponseEntity.ok(book);
+    }
 }
