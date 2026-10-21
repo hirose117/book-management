@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body id="edit" class="center">
+        <header>
+            <h1>編集</h1>
+        </header>
+        <main class="ma-wid2">
+            <form action="#">
+                <!-- タイトル -->
+                <h1>
+                    <input type="text" class="pad-inp" placeholder="サンプル書籍タイトル">
+                </h1>
+                <!-- 画像 -->
+                <!-- ファイル選択ボタン -->
+                <input type="file" id="image-uploader" accept="image/*">
+
+                <!-- プレビュー表示用の枠 -->
+                <div>
+                    <img id="preview" src="img/ダミー画像.webp" alt="プレビュー" class="edt-img">
+                </div>
+
+
+
+
+                <div class="po-bl">
+                    <!-- 作者 -->
+                    <input type="text" class="edt-font-size" placeholder="著作者名">
+                    <!-- 発行日 -->
+                    <input type="date" id="publishedAt" name="publishedAt" class="edt-font-size">
+                    <!-- 金額 -->
+                    <input type="number" class="edt-font-size" placeholder="金額">
+                    <!-- 出版社 -->
+                    <input type="text" class="edt-font-size" maxlength="25" placeholder="青空文庫">
+                    <!-- 書籍区分 (プルダウン) -->
+                    <select name="edt-type" id="edt-type" class="edt-font-size">
+                        <option value="">書籍区分</option>
+                        <option value="0">総記（百科事典、図書館、情報科学など）</option>
+                        <option value="1">哲学（心理学、倫理学、宗教など）</option>
+                        <option value="2">歴史（日本史、世界史、地理、伝記など）</option>
+                        <option value="3">社会科学（政治、法律、経済、社会、教育など）</option>
+                        <option value="4">自然科学（数学、物理、化学、生物、医学など）</option>
+                        <option value="5">技術（工学、建築、機械、家政など）</option>
+                        <option value="6">産業（農業、商業、運輸、通信など）</option>
+                        <option value="7">芸術（絵画、音楽、演劇、スポーツなど）</option>
+                        <option value="8">言語（日本語、英語、中国語などの語学）</option>
+                        <option value="9">文学（日本文学、英米文学、詩歌など）</option>
+                    </select>
+                    <!-- 概要　エリア -->
+                    <textarea name="" maxlength="200" placeholder="人は、命を懸けてまで「信頼」を守れるのか――？
+人間不信に陥り、暴政を振るう国王ディオニスに立ち向かった正義感溢れる青年メロス。捕らえられ処刑を言い渡された彼は、妹の結婚式を挙げるため、親友セリヌンティウスを人質として遺し、三日間の猶予を得る。
+迎えた誓いの刻限。濁流、山賊、そして己の内に芽生える不信と絶望。襲いかかる幾多の試練を前に、ボロボロになったメロスが辿り着く結末とは。語り継がれる名作。"></textarea>
+                </div>
+                <div class="bk-info">
+                    <button type="submit" class="edit-btn mg-auto">決定</button>
+                </div>
+
+
+            </form>
+            <div class="mb2">
+                <a href="index.html" class="delete-btn">戻る</a>
+            </div>
+
+        </main>
+
+        <script src="js/main.js"></script>
+        <script>
+            const uploader = document.getElementById('image-uploader');
+            const preview = document.getElementById('preview');
+
+            uploader.addEventListener('change', function(e) {
+                const file = e.target.files[0]; // 選択された1つ目のファイルを取得
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    // ファイルの読み込みが完了した時の処理
+                    reader.onload = function(e) {
+                        preview.src = e.target.result; // imgタグのsrcに画像データをセット
+                        preview.style.display = 'block'; // 画像を表示
+                    }
+
+                    reader.readAsDataURL(file); // 画像をデータURLとして読み込む
+                }
+            });
+        </script>
+    </body>
+</html>

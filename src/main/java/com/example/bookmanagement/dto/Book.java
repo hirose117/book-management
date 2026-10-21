@@ -2,6 +2,7 @@ package com.example.bookmanagement.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -13,5 +14,5 @@ public class Book {
     private Long price;            // 金額
     private String publisher;        // 出版社
     private String ndc;              // 書籍区分（技術書など）
-    private LocalDateTime createdAt; // データを入力した時間
+    private LocalDate createdAt; // 発行日
 }

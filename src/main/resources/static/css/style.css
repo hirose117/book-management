@@ -1,0 +1,177 @@
+@charset "utf-8";
+
+/* ▼------ 共通設定 ------▼ */
+* {
+    box-sizing: border-box;
+}
+html {
+    font-size: 16px;
+}
+.mg-lr {
+    margin: 0 1rem;
+}
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding: 1rem;
+}
+select {
+    background-color: white;
+    border: 1px solid lightgray;
+    padding: 0 0.5rem;
+}
+input {
+    background-color: white;
+    border-radius: 0.2rem;
+    border: 1px solid lightgray;
+}
+.center {
+    justify-items: center;
+}
+.pa2 {
+    padding: 2rem;
+}
+input::placeholder {
+    color: lightgray;
+}
+textarea {
+    border: 1px solid lightgray;
+    border-radius: 0.2rem;
+    margin: 0.2rem 0;
+    padding: 0.3rem;
+}
+textarea::placeholder {
+    color: lightgray;
+}
+/* ▲------ 共通設定 ------▲ */
+
+/* ▼--------- ホーム／検索画面 ---------▼ */
+.bg-se {
+    background-color: beige;
+    padding: 1rem;
+}
+.ma-wid2 {
+    /* 左右：2rem */
+    margin: 0 2rem;
+}
+.ma-h1 {
+    /* 上下：2rem */
+    margin: 0.2rem 0;
+}
+
+#se-inp {
+    margin: 1rem 0;
+}
+.se-btn {
+    border-radius: 0.2rem;
+    background-color: green;
+    padding: 0 0.5rem;
+    color: #fff;
+}
+.se-btn:hover {
+    background-color: white;
+    color: green;
+    border: 1px solid green;
+}
+.flex-w {
+    display: flex;
+    gap: 1rem;
+    /* 上下：1rem */
+    padding: 1rem 0;
+}
+.rec-btn {
+    background-color: orangered;
+    color: white;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.2rem;
+    text-decoration: none;
+}
+.rec-btn:hover {
+    background-color: white;
+    color: orangered;
+    border: 1px solid orangered;
+}
+.book-card {
+    display: flex;
+    justify-content: center;
+    border: 1px solid deepskyblue;
+    border-radius: 0.2rem;
+    padding: 1rem;
+}
+.bk-img {
+    width: 5rem;
+    height: auto;
+}
+.bk-info {
+    display: flex;
+    margin: auto;
+}
+.book-title {
+    display: block;
+    /* 表示したい幅を指定 */
+    width: 25rem;
+    /* テキストを折り返さない */
+    white-space: nowrap;
+    /* はみ出た部分を隠す */
+    overflow: hidden;
+    /* はみ出た部分を「…」にする */
+    text-overflow: ellipsis;
+}
+.edit-btn {
+    background-color: deepskyblue;
+    color: white;
+
+    border-radius: 0.2rem;
+    border: 1px solid deepskyblue;
+    padding: 0.2rem;
+}
+.edit-btn:hover {
+    background-color: white;
+    color: deepskyblue;
+    border: 1px solid deepskyblue;
+}
+.delete-btn {
+    background-color: crimson;
+    color: white;
+    border-radius: 0.2rem;
+    border: 1px solid crimson;
+    padding: 0.2rem;
+}
+.delete-btn:hover {
+    background-color: white;
+    color: crimson;
+    border: 1px solid crimson;
+}
+/* ▲--------- ホーム／検索画面 ---------▲ */
+
+/* ▼--------- 編集 ---------▼ */
+.edt-img {
+    width: 100%;
+    height: auto;
+    border: 1px solid black;
+    text-align: center
+}
+.edt-size {
+    width: auto;
+    height: 100%;
+
+}
+.edt-font-size {
+    font-size: 1.5rem;
+    margin: 0.2rem 0;
+    padding: 0.3rem;
+}
+.pad-inp {
+    padding: 0.3rem;
+}
+.po-bl {
+    display: grid;
+    margin: 1rem 0;
+}
+.mg-auto {
+    margin: auto;
+}
+.mb2 {
+    margin-bottom: 2rem;
+}
+/* ▲--------- 編集 ---------▲ */
