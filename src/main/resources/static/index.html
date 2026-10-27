@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/style.css">
+        <title>書籍管理システム</title>
+    </head>
+    <body id="index" class="center">
+        <header>
+            <h1>書籍検索・一覧</h1>
+        </header>
+
+        <main class="ma-wid2">
+            <form class="bg-se">
+                <!-- 検索 -->
+                <div id="se-inp">
+                    <input type="search" id="search" name="search" placeholder="タイトルで検索">
+                    <button type="button" id="search-btn" class="se-btn">検索</button>
+                </div>
+                <div>
+                    <!-- ソート ↕️ -->
+                    <!-- 出版日 -->
+                    <select name="sort" id="sort">
+                        <option value="">出版日の発行順</option>
+                        <option value="new">新</option>
+                        <option value="old">古</option>
+                    </select>
+                    <!-- 書籍区分 -->
+                    <select name="type" id="type">
+                        <option value="">書籍区分</option>
+                        <option value="総記">総記（百科事典、図書館、情報科学など）</option>
+                        <option value="哲学">哲学（心理学、倫理学、宗教など）</option>
+                        <option value="歴史">歴史（日本史、世界史、地理、伝記など）</option>
+                        <option value="社会科学">社会科学（政治、法律、経済、社会、教育など）</option>
+                        <option value="自然科学">自然科学（数学、物理、化学、生物、医学など）</option>
+                        <option value="技術">技術（工学、建築、機械、家政など）</option>
+                        <option value="産業">産業（農業、商業、運輸、通信など）</option>
+                        <option value="芸術">芸術（絵画、音楽、演劇、スポーツなど）</option>
+                        <option value="言語">言語（日本語、英語、中国語などの語学）</option>
+                        <option value="文学">文学（日本文学、英米文学、詩歌など）</option>
+                    </select>
+                </div>
+            </form>
+
+            <!-- ボタン系 -->
+            <div class="center pa2">
+                <!-- 登録 -->
+                <div id="rec-btn" class="ma-h1">
+                    <a href="create.html" class="rec-btn">新規作成</a>
+                </div>
+            </div>
+
+            <!-- 書籍一覧コンテナ（JSでこの中にカードを追加する）  -->
+            <div id="book-list" style="margin: 2rem 0;">
+            </div>
+
+        </main>
+
+        <script src="js/main.js"></script>
+    </body>
+</html>
