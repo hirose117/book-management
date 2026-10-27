@@ -11,8 +11,9 @@ public class Book {
     private String title;            // 本のタイトル
     private String author;           // 著作者
     private String overview;         // 概要
-    private Long price;            // 金額
+    private Long price;              // 金額
     private String publisher;        // 出版社
     private String ndc;              // 書籍区分（技術書など）
-    private LocalDate createdAt; // 発行日
+    private LocalDate createdAt;     // 発行日
+    private String imageUrl;         // 表紙画像のパス
 }

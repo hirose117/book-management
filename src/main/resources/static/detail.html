@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>書籍詳細 - 書籍管理システム</title>
+</head>
+<body id="detail" class="center">
+<header>
+    <h1>書籍詳細</h1>
+</header>
+
+<main class="ma-wid2">
+    <div class="bg-se">
+        <!-- 書籍名 -->
+        <div>
+            <input type="text" id="title" class="pad-inp" placeholder="書籍名" disabled>
+        </div>
+
+        <!-- プレビュー表示用の枠 -->
+        <div>
+            <img id="preview" src="img/ダミー画像.webp" alt="表紙画像" class="edt-img">
+        </div>
+
+        <div class="po-bl" style="">
+            <!-- 作者 -->
+            <div style="display: grid">
+                <label>著作者</label>
+                <input type="text" id="author" class="edt-font-size" placeholder="著作者名" disabled>
+            </div>
+            <!-- 発行日 -->
+            <div style="display: grid">
+                <label>発行日</label>
+                <input type="date" id="createdAt" name="createdAt" class="edt-font-size" disabled>
+            </div>
+            <!-- 金額 -->
+            <label>価格</label>
+            <div class="price-container">
+                <input type="number" id="price" class="edt-font-size" placeholder="金額" disabled>
+                <span class="currency-unit">円</span>
+            </div>
+            <!-- 出版社 -->
+            <div style="display: grid">
+                <label>出版社</label>
+                <input type="text" id="publisher" class="edt-font-size" maxlength="25" placeholder="出版社" disabled>
+            </div>
+            <!-- 書籍区分 (プルダウン) -->
+            <div style="display: grid">
+                <label>書籍区分</label>
+                <select name="ndc" id="ndc" class="edt-font-size" disabled>
+                    <option value="">書籍区分</option>
+                    <option value="総記">総記（百科事典、図書館、情報科学など）</option>
+                    <option value="哲学">哲学（心理学、倫理学、宗教など）</option>
+                    <option value="歴史">歴史（日本史、世界史、地理、伝記など）</option>
+                    <option value="社会科学">社会科学（政治、法律、経済、社会、教育など）</option>
+                    <option value="自然科学">自然科学（数学、物理、化学、生物、医学など）</option>
+                    <option value="技術">技術（工学、建築、機械、家政など）</option>
+                    <option value="産業">産業（農業、商業、運輸、通信など）</option>
+                    <option value="芸術">芸術（絵画、音楽、演劇、スポーツなど）</option>
+                    <option value="言語">言語（日本語、英語、中国語などの語学）</option>
+                    <option value="文学">文学（日本文学、英米文学、詩歌など）</option>
+                </select>
+            </div>
+            <!-- 概要 エリア -->
+            <div>
+                <label>概要</label>
+                <textarea name="overview" id="overview" maxlength="200" disabled></textarea>
+            </div>
+        </div>
+
+        <div class="bk-info">
+            <a href="#" id="edit-link" class="edit-btn mg-auto">編集</a>
+        </div>
+    </div>
+
+    <div class="mb2">
+        <a href="index.html" class="delete-btn">戻る</a>
+    </div>
+</main>
+
+<script src="js/main.js"></script>
+</body>
+</html>

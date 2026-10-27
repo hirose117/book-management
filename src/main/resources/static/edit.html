@@ -14,7 +14,7 @@
             <form action="#">
                 <!-- タイトル -->
                 <h1>
-                    <input type="text" class="pad-inp" placeholder="サンプル書籍タイトル">
+                    <input type="text" id="title" class="pad-inp" placeholder="サンプル書籍タイトル">
                 </h1>
                 <!-- 画像 -->
                 <!-- ファイル選択ボタン -->
@@ -22,7 +22,7 @@
 
                 <!-- プレビュー表示用の枠 -->
                 <div>
-                    <img id="preview" src="img/ダミー画像.webp" alt="プレビュー" class="edt-img">
+                    <img id="preview" src="" alt="プレビュー" class="edt-img">
                 </div>
 
 
@@ -30,31 +30,29 @@
 
                 <div class="po-bl">
                     <!-- 作者 -->
-                    <input type="text" class="edt-font-size" placeholder="著作者名">
+                    <input type="text" id="author" class="edt-font-size" placeholder="著作者名">
                     <!-- 発行日 -->
-                    <input type="date" id="publishedAt" name="publishedAt" class="edt-font-size">
+                    <input type="date" id="createdAt" name="createdAt" class="edt-font-size">
                     <!-- 金額 -->
-                    <input type="number" class="edt-font-size" placeholder="金額">
+                    <input type="number" id="price" class="edt-font-size" placeholder="">
                     <!-- 出版社 -->
-                    <input type="text" class="edt-font-size" maxlength="25" placeholder="青空文庫">
+                    <input type="text" id="publisher" class="edt-font-size" maxlength="25" placeholder="">
                     <!-- 書籍区分 (プルダウン) -->
-                    <select name="edt-type" id="edt-type" class="edt-font-size">
+                    <select name="ndc" id="ndc" class="edt-font-size">
                         <option value="">書籍区分</option>
-                        <option value="0">総記（百科事典、図書館、情報科学など）</option>
-                        <option value="1">哲学（心理学、倫理学、宗教など）</option>
-                        <option value="2">歴史（日本史、世界史、地理、伝記など）</option>
-                        <option value="3">社会科学（政治、法律、経済、社会、教育など）</option>
-                        <option value="4">自然科学（数学、物理、化学、生物、医学など）</option>
-                        <option value="5">技術（工学、建築、機械、家政など）</option>
-                        <option value="6">産業（農業、商業、運輸、通信など）</option>
-                        <option value="7">芸術（絵画、音楽、演劇、スポーツなど）</option>
-                        <option value="8">言語（日本語、英語、中国語などの語学）</option>
-                        <option value="9">文学（日本文学、英米文学、詩歌など）</option>
+                        <option value="総記">総記（百科事典、図書館、情報科学など）</option>
+                        <option value="哲学">哲学（心理学、倫理学、宗教など）</option>
+                        <option value="歴史">歴史（日本史、世界史、地理、伝記など）</option>
+                        <option value="社会科学">社会科学（政治、法律、経済、社会、教育など）</option>
+                        <option value="自然科学">自然科学（数学、物理、化学、生物、医学など）</option>
+                        <option value="技術">技術（工学、建築、機械、家政など）</option>
+                        <option value="産業">産業（農業、商業、運輸、通信など）</option>
+                        <option value="芸術">芸術（絵画、音楽、演劇、スポーツなど）</option>
+                        <option value="言語">言語（日本語、英語、中国語などの語学）</option>
+                        <option value="文学">文学（日本文学、英米文学、詩歌など）</option>
                     </select>
                     <!-- 概要　エリア -->
-                    <textarea name="" maxlength="200" placeholder="人は、命を懸けてまで「信頼」を守れるのか――？
-人間不信に陥り、暴政を振るう国王ディオニスに立ち向かった正義感溢れる青年メロス。捕らえられ処刑を言い渡された彼は、妹の結婚式を挙げるため、親友セリヌンティウスを人質として遺し、三日間の猶予を得る。
-迎えた誓いの刻限。濁流、山賊、そして己の内に芽生える不信と絶望。襲いかかる幾多の試練を前に、ボロボロになったメロスが辿り着く結末とは。語り継がれる名作。"></textarea>
+                    <textarea name="overview" id="overview" maxlength="200"></textarea>
                 </div>
                 <div class="bk-info">
                     <button type="submit" class="edit-btn mg-auto">決定</button>

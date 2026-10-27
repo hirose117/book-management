@@ -1,34 +1,80 @@
 const API_BASE_URL = '/api/books';
 
-// 画面読み込み時に、画面ごとの処理を振り分ける
+// ----------------------------------------------------
+// 画面読み込み時の振り分け
+// ----------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     const pageId = document.body.id;
 
     if (pageId === 'index') {
-        loadBooks(); // 一覧画面
+        loadBooks(); // 初回一覧読み込み
+
+        // 🔍 フォーム送信（Enterキー含む）の画面リロードを防止して検索実行
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                loadBooks();
+            });
+        }
+
+        // 🔍 検索ボタンクリック時
+        document.getElementById('search-btn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            loadBooks();
+        });
+
+        // ↕️ 出版日ソート変更時
+        document.getElementById('sort')?.addEventListener('change', loadBooks);
+
+        // 📚 書籍区分変更時
+        document.getElementById('type')?.addEventListener('change', loadBooks);
+
     } else if (pageId === 'create') {
         setupCreateForm(); // 新規作成画面
     } else if (pageId === 'edit') {
         setupEditForm(); // 編集画面
-    }
+    } else if (pageId === 'detail') {
+        setupDetailForm();
+}
+
 });
 
 // ----------------------------------------------------
-// 1. 一覧表示 (GET /api/books)
+// 1. 一覧表示 & 検索・ソート (GET /api/books)
 // ----------------------------------------------------
 async function loadBooks() {
     const bookList = document.getElementById('book-list');
     if (!bookList) return;
 
+    // 🔍 index.html の各入力要素から値を取得
+    const keyword = document.getElementById('search')?.value || '';
+    const sortValue = document.getElementById('sort')?.value || '';
+    const ndc = document.getElementById('type')?.value || '';
+
+    // ソート指定の変換 ("old" -> "asc", "new" またはデフォルト -> "desc")
+    let sort = 'desc';
+    if (sortValue === 'old') {
+        sort = 'asc';
+    } else if (sortValue === 'new') {
+        sort = 'desc';
+    }
+
+    // 🌐 クエリパラメータを作成 (/api/books?keyword=〇〇&sort=asc&ndc=〇〇)
+    const params = new URLSearchParams();
+    if (keyword) params.append('keyword', keyword);
+    if (sort) params.append('sort', sort);
+    if (ndc) params.append('ndc', ndc);
+
     try {
-        const response = await fetch(API_BASE_URL);
+        const response = await fetch(`${API_BASE_URL}?${params.toString()}`);
         if (!response.ok) throw new Error(`HTTPエラー: ${response.status}`);
 
         const books = await response.json();
         bookList.innerHTML = '';
 
         if (books.length === 0) {
-            bookList.innerHTML = '<p>登録されている書籍はありません。</p>';
+            bookList.innerHTML = '<p>該当する書籍は見つかりませんでした。</p>';
             return;
         }
 
@@ -37,8 +83,8 @@ async function loadBooks() {
                 <div class="book-card">
                     <img src="${book.imageUrl || 'img/ダミー画像.webp'}" class="bk-img mg-lr" alt="表紙画像">
                     <div class="bk-info">
-                        <a href="edit.html?id=${book.id}" class="book-title">${book.title}</a>
-                        <p>発行日: ${book.publishedAt || '未設定'}</p>
+                        <a href="detail.html?id=${book.id}" class="book-title">${book.title}</a>
+                        <p>発行日: ${book.createdAt || '未設定'}</p>
                         <div class="mg-lr">
                             <a href="edit.html?id=${book.id}" class="edit-btn">編集</a>
                             <button type="button" class="delete-btn" onclick="deleteBook(${book.id})">削除</button>
@@ -63,15 +109,23 @@ function setupCreateForm() {
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        // 画面の各入力要素から値を取得
+        // 📁 画像ファイルパスの作成
+        const fileInput = document.getElementById('image-uploader');
+        let imageUrl = 'img/ダミー画像.webp';
+
+        if (fileInput && fileInput.files && fileInput.files.length > 0) {
+            imageUrl = `img/${fileInput.files[0].name}`;
+        }
+
         const newBook = {
             title: document.getElementById('title').value,
             author: document.getElementById('author').value,
-            publishedAt: document.getElementById('publishedAt').value,
-            price: document.getElementById('price').value,
+            createdAt: document.getElementById('createdAt').value,
+            price: document.getElementById('price').value ? Number(document.getElementById('price').value) : null,
             publisher: document.getElementById('publisher').value,
-            type: document.getElementById('edt-type').value,
-            description: document.getElementById('description').value
+            ndc: document.getElementById('ndc').value,
+            overview: document.getElementById('overview').value,
+            imageUrl: imageUrl
         };
 
         try {
@@ -83,7 +137,7 @@ function setupCreateForm() {
 
             if (response.ok) {
                 alert('書籍を登録しました！');
-                window.location.href = 'index.html'; // 一覧へ移動
+                window.location.href = 'index.html';
             } else {
                 alert('登録に失敗しました。');
             }
@@ -100,7 +154,6 @@ async function setupEditForm() {
     const form = document.querySelector('form');
     if (!form) return;
 
-    // URLのパラメータから bookId を取得 (?id=123)
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('id');
 
@@ -110,7 +163,9 @@ async function setupEditForm() {
         return;
     }
 
-    // ① 編集対象のデータを既存取得してフォームにセット
+    let currentImageUrl = 'img/ダミー画像.webp';
+
+    // ① 詳細データ取得
     try {
         const response = await fetch(`${API_BASE_URL}/${bookId}`);
         if (!response.ok) throw new Error('データ取得失敗');
@@ -118,27 +173,43 @@ async function setupEditForm() {
         const book = await response.json();
         document.getElementById('title').value = book.title || '';
         document.getElementById('author').value = book.author || '';
-        document.getElementById('publishedAt').value = book.publishedAt || '';
-        document.getElementById('price').value = book.price || '';
+        document.getElementById('createdAt').value = book.createdAt || '';
+        document.getElementById('price').value = book.price !== null ? book.price : '';
         document.getElementById('publisher').value = book.publisher || '';
-        document.getElementById('edt-type').value = book.type !== null ? book.type : '';
-        document.getElementById('description').value = book.description || '';
+        document.getElementById('ndc').value = book.ndc || '';
+        document.getElementById('overview').value = book.overview || '';
+
+        if (book.imageUrl) {
+            currentImageUrl = book.imageUrl;
+            const preview = document.getElementById('preview');
+            if (preview) {
+                preview.src = book.imageUrl;
+            }
+        }
     } catch (error) {
         console.error('詳細取得エラー:', error);
     }
 
-    // ② フォーム送信時に PUT リクエスト送信
+    // ② 更新データ送信
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
+
+        const fileInput = document.getElementById('image-uploader');
+        let imageUrl = currentImageUrl;
+
+        if (fileInput && fileInput.files && fileInput.files.length > 0) {
+            imageUrl = `img/${fileInput.files[0].name}`;
+        }
 
         const updatedBook = {
             title: document.getElementById('title').value,
             author: document.getElementById('author').value,
-            publishedAt: document.getElementById('publishedAt').value,
-            price: document.getElementById('price').value,
+            createdAt: document.getElementById('createdAt').value,
+            price: document.getElementById('price').value ? Number(document.getElementById('price').value) : null,
             publisher: document.getElementById('publisher').value,
-            type: document.getElementById('edt-type').value,
-            description: document.getElementById('description').value
+            ndc: document.getElementById('ndc').value,
+            overview: document.getElementById('overview').value,
+            imageUrl: imageUrl
         };
 
         try {
@@ -173,11 +244,56 @@ async function deleteBook(id) {
 
         if (response.ok) {
             alert('削除しました。');
-            loadBooks(); // 一覧を再読込
+            loadBooks();
         } else {
             alert('削除に失敗しました。');
         }
     } catch (error) {
         console.error('削除エラー:', error);
+    }
+}
+
+// ----------------------------------------------------
+// 5. 詳細表示 (GET /api/books/{id})
+// ----------------------------------------------------
+async function setupDetailForm() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const bookId = urlParams.get('id');
+
+    if (!bookId) {
+        alert('書籍IDが指定されていません。');
+        window.location.href = 'index.html';
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/${bookId}`);
+        if (!response.ok) throw new Error('詳細データの取得に失敗しました');
+
+        const book = await response.json();
+
+        // 📝 編集画面と同じ ID と value 属性を使ってセット
+        document.getElementById('title').value = book.title || '';
+        document.getElementById('author').value = book.author || '';
+        document.getElementById('createdAt').value = book.createdAt || '';
+        document.getElementById('price').value = book.price !== null ? book.price : '';
+        document.getElementById('publisher').value = book.publisher || '';
+        document.getElementById('ndc').value = book.ndc || '';
+        document.getElementById('overview').value = book.overview || '';
+
+        // 🖼️ 画像プレビューのセット (id="preview")
+        const preview = document.getElementById('preview');
+        if (preview && book.imageUrl) {
+            preview.src = book.imageUrl;
+        }
+
+        // ✏️ 編集画面へのリンクを設定 (id="edit-link")
+        const editLink = document.getElementById('edit-link');
+        if (editLink) {
+            editLink.href = `edit.html?id=${book.id}`;
+        }
+    } catch (error) {
+        console.error('詳細取得エラー:', error);
+        alert('書籍情報の取得に失敗しました。');
     }
 }

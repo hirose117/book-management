@@ -2,6 +2,7 @@ package com.example.bookmanagement.service;
 
 import com.example.bookmanagement.dto.Book;
 import com.example.bookmanagement.exception.BookNotFoundException;
+import com.example.bookmanagement.mapper.BookMapper;
 import com.example.bookmanagement.repository.BookRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,9 +12,11 @@ import java.util.List;
 @Service
 public class BookService {
     private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
 
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, BookMapper bookMapper) {
         this.bookRepository = bookRepository;
+        this.bookMapper = bookMapper;
     }
 
     // 全件取得
@@ -115,5 +118,10 @@ public class BookService {
         book.setId(id);
         book.setCreatedAt(targetBook.getCreatedAt());
         return bookRepository.update(book);
+    }
+
+    // 検索機能
+    public List<Book> search(String keyword, String ndc, String sort) {
+        return bookMapper.searchBooks(keyword, ndc, sort);
     }
 }

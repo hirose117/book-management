@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <title>書籍管理システム</title>
-</head>
-    <body id="main" class="center">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/style.css">
+        <title>書籍管理システム</title>
+    </head>
+    <body id="index" class="center">
         <header>
             <h1>書籍検索・一覧</h1>
         </header>
 
         <main class="ma-wid2">
-            <form class="bg-se">
+            <form class="bg-se" onsubmit="event.preventDefault();">
                 <!-- 検索 -->
                 <div id="se-inp">
-                    <input type="search" id="search" name="search">
+                    <input type="search" id="search" name="search" placeholder="タイトルで検索">
                     <button type="button" id="search-btn" class="se-btn">検索</button>
                 </div>
                 <div>
-                    <!-- ソート -->
+                    <!-- ソート ↕️ -->
                     <!-- 出版日 -->
                     <select name="sort" id="sort">
                         <option value="">出版日の発行順</option>
@@ -29,16 +29,16 @@
                     <!-- 書籍区分 -->
                     <select name="type" id="type">
                         <option value="">書籍区分</option>
-                        <option value="0">総記（百科事典、図書館、情報科学など）</option>
-                        <option value="1">哲学（心理学、倫理学、宗教など）</option>
-                        <option value="2">歴史（日本史、世界史、地理、伝記など）</option>
-                        <option value="3">社会科学（政治、法律、経済、社会、教育など）</option>
-                        <option value="4">自然科学（数学、物理、化学、生物、医学など）</option>
-                        <option value="5">技術（工学、建築、機械、家政など）</option>
-                        <option value="6">産業（農業、商業、運輸、通信など）</option>
-                        <option value="7">芸術（絵画、音楽、演劇、スポーツなど）</option>
-                        <option value="8">言語（日本語、英語、中国語などの語学）</option>
-                        <option value="9">文学（日本文学、英米文学、詩歌など）</option>
+                        <option value="総記">総記（百科事典、図書館、情報科学など）</option>
+                        <option value="哲学">哲学（心理学、倫理学、宗教など）</option>
+                        <option value="歴史">歴史（日本史、世界史、地理、伝記など）</option>
+                        <option value="社会科学">社会科学（政治、法律、経済、社会、教育など）</option>
+                        <option value="自然科学">自然科学（数学、物理、化学、生物、医学など）</option>
+                        <option value="技術">技術（工学、建築、機械、家政など）</option>
+                        <option value="産業">産業（農業、商業、運輸、通信など）</option>
+                        <option value="芸術">芸術（絵画、音楽、演劇、スポーツなど）</option>
+                        <option value="言語">言語（日本語、英語、中国語などの語学）</option>
+                        <option value="文学">文学（日本文学、英米文学、詩歌など）</option>
                     </select>
                 </div>
             </form>
@@ -51,21 +51,8 @@
                 </div>
             </div>
 
-            <!-- 書籍一覧コンテナ（JSでこの中にカードを追加していきます） -->
+            <!-- 書籍一覧コンテナ（JSでこの中にカードを追加する）  -->
             <div id="book-list">
-                <!-- 1冊分の表示カードサンプル -->
-                <div class="book-card">
-                    <img src="" class="bk-img mg-lr" alt="表紙画像">
-                    <div class="bk-info">
-                        <!-- 書籍名 -->
-                        <a href="#" class="book-title">サンプル書籍タイトル</a>
-                        <div class="mg-lr">
-                            <!-- 操作ボタン -->
-                            <a href="edit.html" class="edit-btn">編集</a>
-                            <button type="button" class="delete-btn">削除</button>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </main>
