@@ -182,16 +182,17 @@ a:hover {
 }
 /* ▲--------- 編集 ---------▲ */
 
-/* 詳細画面 */
+/* ▼--------- 詳細画面 ---------▼ */
 .price-container {
     display: grid;
     /* 1列目: label (自動サイズ) / 2列目: input (伸縮) / 3列目: 円 (自動サイズ) */
     grid-template-columns: auto 1fr auto;
-    align-items: center; /* 上下の中心を揃える 🎯 */
-    gap: 8px;            /* 要素同士のすき間 📐 */
+    align-items: center; /* 上下の中心を揃える */
+    gap: 8px;            /* 要素同士のすき間 */
 }
 
 /* 「円」の文字サイズや余白調整（必要に応じて） */
 .currency-unit {
     font-size: 1rem;
 }
+/* ▲--------- 詳細画面 ---------▲ */
